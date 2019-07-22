@@ -1,3 +1,4 @@
+$( document ).ready(function() {
 // create variables for inputs
 // ===================================
  var gifButts = ["michael jackson", "cyborg and beast boy"]
@@ -24,3 +25,23 @@ gifButts.push(gifVal);
 renderButtons();
 });
 renderButtons();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+})
