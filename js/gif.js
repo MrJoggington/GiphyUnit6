@@ -3,7 +3,8 @@ $( document ).ready(function() {
 // ===================================
  var gifButts = ["michael jackson", "cyborg and beast boy"]
 
-// read button so that input cvalues create gifs and buttons
+
+// creating buttons to add to the gif buttons
 // ====================================
 function renderButtons() {
     $("#gif-buttons").empty()
@@ -25,9 +26,39 @@ gifButts.push(gifVal);
 renderButtons();
 });
 renderButtons();
+let gifVal = $('#gif-input').val().trim()
 
+$("button").on("click", function() {
 
+var person = $(this).attr("data-name");
 
+var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + person + "&api_key=TWH8G0TU5TrPRO2Z9qAKNwMeS0SigULG";
+
+$.ajax({
+    url: queryURL,
+    method: "GET"
+})
+    .then(function(response){
+        var results = response.data
+        
+        for(var i = 0; i < results.length; i++){
+            if(results[i].rating !== "r") {
+                var divGif = $("<div>")
+                var rating = results[i].rating;
+                var p = $("<p>").text("rating: " + rating);
+                var gifImage = $("<img>")
+                gifImage.attr("src", results[i].images.fixed_height.url)
+                divGif.append(p);
+                divGif.append(gifImage);
+                $("#gif-div").prepend(divGif)
+
+            }
+        
+
+        }
+    })
+
+})
 
 
 
