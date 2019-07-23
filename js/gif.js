@@ -1,38 +1,39 @@
 $( document ).ready(function() {
 // create variables for inputs
 // ===================================
- var gifButts = ["michael jackson", "cyborg and beast boy"]
+ var gifButts = []
 
-
-// creating buttons to add to the gif buttons
-// ====================================
-function renderButtons() {
+ function renderButtons() {
     $("#gif-buttons").empty()
 
     for(var i = 0; i < gifButts.length; i++) {
         var a = $("<button>");
-        a.addClass("gif");
+        a.addClass("gif-btn");
         a.attr("data-name", gifButts[i]);
         a.text(gifButts[i]);
         $("#gif-buttons").append(a)
     }
 }
-
+// creating buttons to add to the gif buttons
+// ====================================
 
 $('#add-gif').on('click', function(event){
-event.preventDefault()
-let gifVal = $('#gif-input').val().trim()
-gifButts.push(gifVal);
-renderButtons();
-});
-renderButtons();
-let gifVal = $('#gif-input').val().trim()
+    event.preventDefault()
+    let gifVal = $('#gif-input').val().trim()
+    gifButts.push(gifVal);
+    renderButtons();
+    });
+  
 
-$("button").on("click", function() {
+    renderButtons()
+
+function displayGif(){
+    $('#gifDiv').empty() // to clear out the div your gifs are going to
+        
 
 var person = $(this).attr("data-name");
 
-var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + person + "&api_key=TWH8G0TU5TrPRO2Z9qAKNwMeS0SigULG";
+var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + person + "&api_key=TWH8G0TU5TrPRO2Z9qAKNwMeS0SigULG&limit=10";
 
 $.ajax({
     url: queryURL,
@@ -51,6 +52,7 @@ $.ajax({
                 divGif.append(p);
                 divGif.append(gifImage);
                 $("#gif-div").prepend(divGif)
+               
 
             }
         
@@ -58,12 +60,11 @@ $.ajax({
         }
     })
 
-})
+}
 
+$(document).on('click', '.gif-btn', displayGif)
 
-
-
-
+renderButtons()
 
 
 
